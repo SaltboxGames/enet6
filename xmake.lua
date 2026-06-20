@@ -40,6 +40,11 @@ target("enet6", function ()
         add_defines("ENET_DLL", { public = true })
     end
 
+    if is_plat("android") then
+        add_shflags("-Wl,-z,max-page-size=16384", {force = true})
+        add_shflags("-Wl,-z,common-page-size=16384", {force = true})
+    end
+
     if is_plat("windows", "mingw") then
         add_syslinks("winmm", "ws2_32", { public = true })
     else
