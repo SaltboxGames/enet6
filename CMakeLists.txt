@@ -95,6 +95,13 @@ if(WIN32)
     target_link_libraries(enet6 PRIVATE winmm ws2_32)
 endif()
 
+if(ANDROID AND BUILD_SHARED_LIBS)
+    target_link_options(enet6 PRIVATE
+        "-Wl,-z,max-page-size=16384"
+        "-Wl,-z,common-page-size=16384"
+    )
+endif()
+
 # Installation
 include(GNUInstallDirs)
 install(TARGETS enet6
